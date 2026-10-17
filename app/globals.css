@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+:root {
+  color-scheme: light;
+  --background: 44 34% 94%;
+  --foreground: 153 19% 21%;
+  --muted: 100 17% 93%;
+  --muted-foreground: 145 10% 35%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 8%;
+  --card: 45 44% 98%;
+  --card-foreground: 153 19% 21%;
+  --border: 98 15% 79%;
+  --input: 120 12% 83%;
+  --primary: 151 28% 33%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 110 22% 91%;
+  --secondary-foreground: 151 28% 28%;
+  --accent: 100 24% 94%;
+  --accent-foreground: 151 28% 28%;
+  --destructive: 0 72% 52%;
+  --destructive-foreground: 0 0% 100%;
+  --ring: 151 28% 40%;
+  --radius: 1rem;
+  --font-sans: "SF Pro Display", "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", monospace;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: 0 0% 7%;
+  --foreground: 0 0% 96%;
+  --muted: 0 0% 17%;
+  --muted-foreground: 0 0% 70%;
+  --popover: 0 0% 14%;
+  --popover-foreground: 0 0% 96%;
+  --card: 0 0% 11%;
+  --card-foreground: 0 0% 96%;
+  --border: 0 0% 24%;
+  --input: 0 0% 34%;
+  --primary: 0 0% 96%;
+  --primary-foreground: 0 0% 8%;
+  --secondary: 0 0% 14%;
+  --secondary-foreground: 0 0% 94%;
+  --accent: 0 0% 20%;
+  --accent-foreground: 0 0% 94%;
+  --destructive: 0 72% 56%;
+  --destructive-foreground: 0 0% 100%;
+  --ring: 0 0% 92%;
+}
+
+* {
+  @apply border-border;
+}
+
+html,
+body {
+  min-height: 100%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-x: hidden;
+}
+
+html {
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  background-image: radial-gradient(ellipse at 5% 0%, hsl(var(--primary) / .08), transparent 48%), radial-gradient(ellipse at 100% 90%, #bc94600b, transparent 55%);
+  background-attachment: fixed;
+}
+
+a {
+  @apply text-inherit no-underline;
+  cursor: pointer;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+select {
+  appearance: auto;
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--card));
+}
+
+select:focus-visible, a:focus-visible, summary:focus-visible, button:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 3px;
+}
+
+option {
+  background-color: hsl(var(--popover));
+  color: hsl(var(--popover-foreground));
+}
+
+input[type="checkbox"], input[type="radio"] {
+  accent-color: hsl(var(--primary));
+}
+
+button,
+label[for],
+summary,
+[role="button"],
+input[type="checkbox"],
+input[type="radio"],
+input[type="file"] {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  cursor: not-allowed;
+}
+}
+
+.grid-surface {
+  background: hsl(var(--secondary) / .35);
+}
+
+/* Wentu: paper stock, botanical ink and numbered shop stationery. */
+.wentu-hero { position: relative; overflow: hidden; padding: 30px 32px; border: 1px solid hsl(var(--border)); border-top: 4px solid hsl(var(--primary)); border-radius: 6px 6px 18px 18px; background: hsl(var(--card)); box-shadow: 0 5px 0 -2px hsl(var(--background)), 0 6px 0 -2px hsl(var(--border)); }
+.wentu-commerce .wentu-hero { padding-bottom: 0; }
+.wentu-hero::after { content: ""; position: absolute; inset: 0; opacity: .23; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.12' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.wentu-hero > * { position: relative; z-index: 1; }
+.wentu-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid hsl(var(--border)); }
+.wentu-eyebrow { font-size: 10px; line-height: 1.8; letter-spacing: .17em; color: hsl(var(--primary)); font-weight: 600; }
+.wentu-edition { font-size: 11px; color: hsl(var(--muted-foreground)); }
+.wentu-hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) 210px; gap: 30px; align-items: center; padding: 26px 0; }
+.wentu-hero h1 { margin-top: 12px; font-family: "Noto Serif SC", "STSong", "SimSun", serif; font-weight: 600; font-size: clamp(27px, 2.8vw, 40px); line-height: 1.5; letter-spacing: .055em; }
+.wentu-hero-description { margin-top: 16px; font-size: 13px; line-height: 1.95; color: hsl(var(--muted-foreground)); }
+.wentu-service-note { padding: 20px 18px; border: 1px solid hsl(var(--primary) / .35); outline: 1px solid hsl(var(--primary) / .15); outline-offset: -5px; background: hsl(var(--secondary) / .55); transform: rotate(2deg); }
+.wentu-note-number { display: block; font: 24px "STSong", "SimSun", serif; letter-spacing: .2em; color: hsl(var(--primary)); margin-bottom: 14px; }
+.wentu-service-note strong { display: block; font-size: 13px; }
+.wentu-service-note p { margin-top: 10px; font-size: 12px; line-height: 2; color: hsl(var(--muted-foreground)); }
+.wentu-note-footer { display: block; margin-top: 14px; padding-top: 12px; border-top: 1px dashed hsl(var(--border)); font-size: 10px; color: hsl(var(--muted-foreground)); }
+.wentu-process { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 18px 0; border-top: 1px solid hsl(var(--border)); }
+.wentu-process li { display: flex; align-items: center; gap: 12px; }
+.wentu-process li > span { color: hsl(var(--primary)); font: italic 24px Georgia, serif; }
+.wentu-process strong { display: block; font-size: 12px; font-weight: 600; }
+.wentu-process small { display: block; font-size: 10px; margin-top: 4px; color: hsl(var(--muted-foreground)); }
+.wentu-workbench { margin-top: 36px; padding: 26px 28px 0; border: 1px solid hsl(var(--border)); border-radius: 16px; background: hsl(var(--card)); }
+.wentu-workbench-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; border-bottom: 1px solid hsl(var(--border)); padding-bottom: 20px; }
+.wentu-workbench-heading h2 { margin-top: 8px; font-size: 19px; line-height: 1.5; font-weight: 600; }
+.wentu-mode { display: inline-flex; padding: 4px; gap: 3px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 10px; }
+.wentu-mode button { padding: 8px 13px; border-radius: 7px; font-size: 12px; line-height: 1.5; color: hsl(var(--muted-foreground)); transition: background .18s, color .18s, box-shadow .18s; }
+.wentu-mode button:hover { color: hsl(var(--primary)); background: hsl(var(--card) / .6); }
+.wentu-mode button.is-active { color: hsl(var(--primary)); background: hsl(var(--card)); font-weight: 600; box-shadow: 0 1px 4px hsl(var(--foreground) / .1); }
+.wentu-upload-zone { background-image: radial-gradient(hsl(var(--primary) / .1) .7px, transparent .7px); background-size: 12px 12px; }
+.wentu-upload-zone:hover { border-color: hsl(var(--primary) / .6); }
+.wentu-upload-zone > svg { padding: 12px; width: 56px; height: 56px; border-radius: 50%; color: hsl(var(--primary)); background: hsl(var(--secondary)); }
+.wentu-shell aside { background: hsl(var(--secondary) / .5); box-shadow: 3px 5px 16px hsl(var(--foreground) / .035); }
+.wentu-shell aside nav a { border-left: 3px solid transparent; border-radius: 5px 12px 12px 5px; }
+.wentu-shell aside nav a[aria-current="page"] { border-left-color: hsl(var(--primary)); }
+.wentu-shell main { min-height: calc(100vh - 40px); background: hsl(var(--background) / .6); box-shadow: none; }
+input, textarea, select { transition: border-color .2s, box-shadow .2s; }
+input:focus, textarea:focus { box-shadow: 0 0 0 3px hsl(var(--primary) / .12); }
+@media (max-width: 1100px) { .wentu-hero-layout { grid-template-columns: 1fr; } .wentu-service-note { display: none; } }
+@media (max-width: 640px) { .wentu-hero { padding: 22px 20px; } .wentu-edition { display: none; } .wentu-workbench { margin-top: 26px; padding: 22px 18px 0; } .wentu-process { gap: 10px; } .wentu-process li { gap: 7px; align-items: flex-start; } .wentu-process li > span { font-size: 19px; } .wentu-process small { line-height: 1.6; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+.phone-frame {
+  box-shadow:
+    0 0 0 1px rgba(15, 23, 42, 0.08),
+    0 26px 70px -34px rgba(15, 23, 42, 0.18);
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Phase-shifted dots rise, grow and brighten as a ripple crosses the full image. */
+.mx-phone-device .image-generation-loading {
+  --background: 0 0% 97%;
+  --foreground: 0 0% 8%;
+  --muted-foreground: 0 0% 40%;
+}
+.image-generation-dots {
+  overflow: hidden;
+  pointer-events: none;
+}
+.image-generation-dots circle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: image-generation-dot-wave 2.8s ease-in-out infinite;
+}
+@keyframes image-generation-dot-wave {
+  0%, 100% { transform: translateY(5px) scale(.65); opacity: .18; }
+  50% { transform: translateY(-6px) scale(1.65); opacity: 1; }
+}
+.image-generation-caption { pointer-events: none; }
+.image-generation-caption::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -8px -12px;
+  border-radius: 50%;
+  background: hsl(var(--background) / .9);
+  filter: blur(14px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .image-generation-dots circle { animation: none; opacity: .55; }
+}
+@keyframes upload-stack-arrive {
+  from { opacity: 0; scale: .93; }
+  to { opacity: 1; scale: 1; }
+}
+.upload-stack-card {
+  animation: upload-stack-arrive 320ms ease-out both;
+  transition: transform 350ms ease, inset 350ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .upload-stack-card { animation: none; transition: none; }
+}
+@media (hover: none) {
+  .project-card-overlay { opacity: 1; }
+}

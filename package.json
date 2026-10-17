@@ -1,0 +1,152 @@
+{
+  "name": "wentu",
+  "version": "0.3.0",
+  "private": false,
+  "description": "文图 · 基于 MxPage 的 AI 商品图文创作工作台",
+  "author": "lemon150637 (Wentu); original MxPage by 灵矩绘境",
+  "license": "MIT",
+  "homepage": "https://github.com/lemon150637/wentu",
+  "repository": { "type": "git", "url": "https://github.com/lemon150637/wentu.git" },
+  "engines": { "node": ">=24 <25" },
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "test": "node --import tsx --test tests/*.test.ts tests/*.test.tsx",
+    "test:detail": "tsx --test tests/workflow-v4.test.ts tests/workflow-v4-recovery.test.ts tests/content-review-v4.test.ts tests/image-prompts-v4.test.ts",
+    "dev": "node ./scripts/run-next-safe.cjs dev",
+    "build": "npm run docs:sync && npm run prisma:generate && node ./scripts/run-next-safe.cjs build",
+    "start": "node ./scripts/run-next-safe.cjs start",
+    "desktop:start": "node ./scripts/build-desktop.cjs start",
+    "build:desktop": "npm run docs:sync && npm run prisma:generate && node ./scripts/build-desktop.cjs prepare",
+    "docs:sync": "node ./scripts/sync-public-docs.cjs",
+    "dist:mac": "npm run build:desktop && electron-builder --mac zip --publish never",
+    "dist:win": "npm run build:desktop && electron-builder --win nsis --x64 --publish never",
+    "dist:green": "npm run build:desktop && electron-builder --win zip --x64 --publish never",
+    "dist:all-win": "npm run build:desktop && electron-builder --win nsis zip --x64 --publish never",
+    "smoke:desktop": "node ./scripts/smoke-desktop.cjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "node -e \"console.log('Linting is not configured for this Windows path-safe build.')\"",
+    "prisma:generate": "node ./scripts/run-prisma-safe.cjs generate",
+    "prisma:migrate": "node ./scripts/apply-prisma-migrations.cjs",
+    "prisma:deploy": "node ./scripts/apply-prisma-migrations.cjs"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@prisma/client": "^6.19.2",
+    "@radix-ui/react-alert-dialog": "^1.1.14",
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-scroll-area": "^1.2.9",
+    "@radix-ui/react-select": "^2.2.5",
+    "@radix-ui/react-separator": "^1.1.7",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tabs": "^1.1.12",
+    "@radix-ui/react-toast": "^1.2.14",
+    "archiver": "^7.0.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^0.511.0",
+    "nanoid": "^5.1.5",
+    "next": "^14.2.35",
+    "openai": "^7.15.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-hook-form": "^7.65.0",
+    "sharp": "^0.35.4",
+    "sonner": "^2.0.7",
+    "tailwind-merge": "^3.3.0",
+    "zod": "^4.1.11",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@types/archiver": "^7.0.0",
+    "@types/node": "^20.17.30",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "autoprefixer": "^10.4.21",
+    "electron": "^35.2.2",
+    "electron-builder": "^26.8.1",
+    "postcss": "^8.4.49",
+    "prisma": "^6.19.2",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.23.13",
+    "typescript": "^5.8.3"
+  },
+  "build": {
+    "appId": "com.mxpage.app",
+    "productName": "文图",
+    "asar": false,
+    "npmRebuild": false,
+    "asarUnpack": [
+      ".next-desktop/standalone/node_modules/.prisma/**/*",
+      ".next-desktop/standalone/node_modules/@prisma/**/*"
+    ],
+    "directories": {
+      "output": "dist-desktop",
+      "buildResources": "public"
+    },
+    "files": [
+      "desktop/**/*",
+      ".next-desktop/standalone/**/*",
+      ".next-desktop/static/**/*",
+      "scripts/runtime-paths.cjs",
+      "scripts/apply-prisma-migrations.cjs",
+      "package.json",
+      "!**/.env*",
+      "!**/*.db",
+      "!**/*.db-*",
+      "!**/storage/**/*",
+      "!**/test-reports/**/*",
+      "!**/test-output/**/*",
+      "!**/*.log"
+    ],
+    "extraResources": [
+      {
+        "from": "public/brand-icon.ico",
+        "to": "icon.ico"
+      }
+    ],
+    "win": {
+      "icon": "public/brand-icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "dir",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "MxPage-${version}-windows-${arch}.${ext}"
+    },
+    "mac": {
+      "category": "public.app-category.graphics-design",
+      "target": ["zip"],
+      "icon": "public/brand-icon.png",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "artifactName": "MxPage-${version}-macos-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "installerIcon": "public/brand-icon.ico",
+      "uninstallerIcon": "public/brand-icon.ico",
+      "installerHeaderIcon": "public/brand-icon.ico"
+    }
+  }
+}
